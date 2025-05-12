@@ -7,6 +7,8 @@ import dbConntect from './config/db.config.js';
 const app = express();
 dbConntect();
 
+import userRouter from './routes/user.routes.js';
+
 // Middleware
 app.use(cors());
 app.use(cookieParser());
@@ -17,6 +19,8 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
+
+app.use('/api/user', userRouter);
 
 // Port setup with fallback
 const PORT = process.env.PORT || 5000;
