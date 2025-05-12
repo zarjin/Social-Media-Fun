@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const userSchema = mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     firstName: { type: String, required: true, minlength: 3, maxlength: 15 },
     lastName: { type: String, required: true, minlength: 3, maxlength: 15 },
@@ -8,13 +8,17 @@ const userSchema = mongoose.Schema(
     password: { type: String, required: true, minlength: 8, maxlength: 16 },
     profileImage: { type: String },
     coverImage: { type: String },
-    bio: { type: String, minlength: 25, maxlength: 100 },
+    bio: { type: String, minlength: 10, maxlength: 100 },
     workAt: { type: String },
     address: { type: String },
-    relationshipStatus: { type: String },
-    yourPost: [{ postId: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
-    following: [{ userId: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    follower: [{ userId: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    relationshipStatus: {
+      type: String,
+      enum: ['Single', 'In a relationship', 'Married', "It's complicated"],
+    },
+    yourPost: [{ postId: { type: mongoose.Types.ObjectId, ref: 'Post' } }],
+    yourLikePost: [{ postId: { type: mongoose.Types.ObjectId, ref: 'Post' } }],
+    following: [{ userId: { type: mongoose.Types.ObjectId, ref: 'User' } }],
+    followers: [{ userId: { type: mongoose.Types.ObjectId, ref: 'User' } }],
   },
   { timestamps: true }
 );
