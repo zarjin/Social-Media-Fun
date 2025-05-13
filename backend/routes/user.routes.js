@@ -21,7 +21,7 @@ userRouter.post('/login', loginUser);
 
 userRouter.get('/logout', logoutUser);
 
-userRouter.post(
+userRouter.put(
   '/update',
   Authentication,
   userImage.fields([
